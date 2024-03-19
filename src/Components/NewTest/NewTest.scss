@@ -1,0 +1,39 @@
+
+.test{
+    border-radius: 5px;
+    background-color: #F5F5F5;
+    height: 9rem+calc(.5);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+    transition: all .2s ease-in-out;
+    cursor: pointer;
+    .status{
+        width: 5px;
+        height: 100%;
+        border-radius: 5px 0 0 5px;
+        
+    }
+    .content-test{
+        div{
+            margin: auto 0;
+        }
+    }
+    .sub-name{
+        font-size: 1.1rem;
+    }
+}
+.test:hover{
+    background-color: #d9d8d8;
+}
+
+.detail-btn{
+    background-color: aqua;
+    height: 100%;
+    width: 100%;
+    transition: all .2s ease-in-out;
+}
+.after{
+
+    height: 150p;
+    display: flex;
+    align-items: center;
+}

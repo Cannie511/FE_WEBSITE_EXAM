@@ -1,0 +1,35 @@
+.header{
+    background-color: #6C7EE1;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: fixed;
+    width: 100%;
+    font-size: 1.4rem;
+    height: 3rem;
+    z-index: 101 !important;
+    span{
+        height: 100%;
+        vertical-align: middle;
+        font-size: 4.5vw;
+    }
+    b{
+        height: 100%;
+        
+        vertical-align: middle;
+    }
+    button{
+        height: 100%;
+        
+        vertical-align: middle;
+    }
+
+
+@media (max-width: 575px) {
+    .sub-title{
+        font-size: 4.5vw;
+    }
+}}
+@media (min-width: 575px) {
+    .header{
+        z-index: 0;
+    }
+}

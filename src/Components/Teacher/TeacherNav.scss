@@ -1,0 +1,46 @@
+.teacher-nav{
+  margin: 0;
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 20%;
+    background-color: #efeded;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    
+  }
+  @media (max-width:576px) {
+    ul{
+      width: 0%;
+      transition: width .2s ease-in-out;
+    }  
+    .show{
+      width: 100%;
+    }
+  }
+  li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    font-size: 1.2rem;
+    text-decoration: none;
+  }
+  
+  li a.active {
+    background-color: #6C7EE1;
+    color: white;
+  }
+  
+  li a:hover:not(.active) {
+    background-color: #8894d6;
+    color: white;
+  }
+  
+}
+.menubtn{
+  width: 3rem;
+  height: 3rem;
+  font-weight: 900;
+}
