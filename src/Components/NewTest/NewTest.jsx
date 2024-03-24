@@ -2,7 +2,7 @@ import "./NewTest.scss"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const NewTest =(props)=>{
     return(<>
-                            <div className="col-3 m-4 p-0 container test" key={props.item.id}>
+                            <div className="col-sm-3 col-12 m-sm-4 m-0 my-2 p-0 container test" key={props.item.id}>
                                 <div className="status float-start" style={{backgroundColor:"green"}}></div>
                                 <div className="row">
                                 <div className=" content-test col-11 float-start d-flex flex-column justify-content-center align-items-cente px-2 py-1">

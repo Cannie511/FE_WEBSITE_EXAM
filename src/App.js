@@ -1,17 +1,11 @@
 import "./App.scss";
-import Header from "./Components/Header/Header";
 import Nav from "./Components/Nav/Nav";
-import {
-  BrowserRouter,
-  useHistory,
-} from "react-router-dom/cjs/react-router-dom.min";
-import { useContext, useEffect, useState } from "react";
+import { BrowserRouter } from "react-router-dom/cjs/react-router-dom.min";
+import { useEffect, useState } from "react";
 import AppRoutes from "./Components/Routes/AppRoutes";
-import { UserContext } from "./Components/Context/UserContext";
+import { Slide, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
-  const { user, login } = useContext(UserContext);
-
-  const history = useHistory();
   const [start, setStart] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSession, setIsSession] = useState(false);
@@ -33,7 +27,7 @@ function App() {
     { id: "TDH202022", name: "Hóa Lớp 11" },
     { id: "TDH202021", name: "Địa Lớp 12" },
   ]);
-  const listQues = [
+  const [listQues, setListQues] = useState([
     {
       id: 1,
       title: "1+1 = ?",
@@ -74,7 +68,7 @@ function App() {
       C: 189,
       D: 198,
     },
-  ];
+  ]);
   const markPerQes = 10 / listQues.length;
   const handleGetAnswer = (answer) => {
     setSelectedAns(answer);
@@ -120,25 +114,39 @@ function App() {
     }
     setPoint(countTrue * markPerQes);
   };
-  const handleSession = () => {
-    let session = sessionStorage.getItem("key");
-    if (session) {
-      setIsSession(true);
+  const shuffled = (array) => {
+    const shuffledArray = array.slice();
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArray[i], shuffledArray[j]] = [
+        shuffledArray[j],
+        shuffledArray[i],
+      ];
     }
+    return shuffledArray;
   };
+  // const handleSession = () => {
+  //   let session = sessionStorage.getItem("key");
+  //   if (session) {
+  //     setIsSession(true);
+  //   }
+  // };
   useEffect(() => {
     let answer = selectedAns;
+    let shuffledArray = shuffled(listQues);
+    setListQues(shuffledArray);
+    // let role = localStorage.getItem("role");
     if (answer && answer !== null) {
       setListAns([...listAns, answer]);
       setSelectedAns("");
       // console.log("ans:", answer);
     }
     // console.log(markPerQes);
-  }, [selectedAns]);
+  }, [window.location.pathname]);
 
   return (
     <BrowserRouter>
-      <div>
+      <div className="app-container">
         <Nav />
         <AppRoutes
           setIsSession={setIsSession}
@@ -153,10 +161,23 @@ function App() {
           length={listQues.length}
           isLoading={isLoading}
         />
-        <div className="fixed-bottom text-start px-5 d-none d-sm-block">
+        <div className="fixed-bottom text-start px-2 d-none d-sm-block">
           Copyright &copy; 2024 by QuizTest
         </div>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Slide}
+      />
     </BrowserRouter>
   );
 }

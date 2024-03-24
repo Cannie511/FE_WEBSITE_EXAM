@@ -3,8 +3,9 @@ import {UserContext} from "../Context/UserContext";
 import "./Login.scss"
 import {apiLogin} from "../../services/APIServices"
 import { useHistory,useParams } from "react-router-dom/cjs/react-router-dom.min";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Loading from "../Loading/Loading";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { toast } from "react-toastify";
+
 const Login =(props)=>{
     const history = useHistory();
     let {rolename} = useParams();
@@ -46,7 +47,9 @@ const Login =(props)=>{
                     localStorage.setItem("login",JSON.stringify(true));
                     localStorage.setItem("role",2);
                     localStorage.setItem("token",res.data.token);
-                    history.push("/IdTest")
+                    toast("xin chào "+ username);
+                    history.push("/IdTest");
+                    
                 }
             } catch (error) {
                 // console.log(error.response);
@@ -54,12 +57,6 @@ const Login =(props)=>{
                 setPending(false);
             }
         }
-        // if(username==="student"){
-        //     login(username);
-        //     localStorage.setItem("email", username);
-        //     localStorage.setItem("login",JSON.stringify(true));
-        //     localStorage.setItem("role",2)
-        // }
         else {
             history.push("/login/sv");
         };
@@ -92,6 +89,7 @@ const Login =(props)=>{
                     localStorage.setItem("role",1);
                     localStorage.setItem("token",res.data.token);
                     history.push("/Teacher/new-test");
+                    
                 }
             } catch (error) {
                 // console.log(error.response);
@@ -106,9 +104,9 @@ const Login =(props)=>{
     const handleRegister =()=>{
         history.push("/register")
     }
-    const handleSwitchBtn =()=>{
-        setSwitchbtn(!switchbtn)
-    }
+    // const handleSwitchBtn =()=>{
+    //     setSwitchbtn(!switchbtn)
+    // }
     useEffect(()=>{
         let authen = localStorage.getItem("login");
         let role = localStorage.getItem("role")

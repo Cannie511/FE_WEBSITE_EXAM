@@ -3,21 +3,25 @@ import {
     Route,
     useHistory,
   } from "react-router-dom/cjs/react-router-dom.min";
-  import Login from "../login/Login";
-  import Register from "../Register/Register";
-  import TestComponent from "../TestComponent/TestComponent";
-  import SearchIDTest from "../SearchIDTest/SearchIDTest";
-    import Mark from "../Mark/Mark";
-    import { UserContext } from "../Context/UserContext";
+import Login from "../login/Login";
+import Register from "../Register/Register";
+import TestComponent from "../TestComponent/TestComponent";
+import SearchIDTest from "../SearchIDTest/SearchIDTest";
+import Mark from "../Mark/Mark";
 import { useContext, useEffect, useState } from "react";
 import PrivateRoute from "./PrivateRoute";
 import TeacherNav from "../Teacher/TeacherNav";
 import TestList from "../TestList/TestList";
-import BanList from "../BanList/BanList";
-
+import TestPage from "../TestPage/TestPage";
+import TeacherRoute from "./TeacherRoute";
+import StudentRoute from "./StudentRoute";
+import { UserContext } from "../Context/UserContext";
+import { ToastContainer,Bounce } from "react-toastify";
 const AppRoutes = (props)=>{
     const history = useHistory()
+    const {user} = useContext(UserContext)
     const [logined, setLogined]=useState(false);
+    const [role, setRole] = useState(localStorage.getItem("role"));
     const handleRedirect = () => {
       setTimeout(() => {
         history.push("/IdTest")
@@ -25,7 +29,9 @@ const AppRoutes = (props)=>{
     }; 
     
     useEffect(()=>{
-
+        if(!role){
+          history.push("/login");
+        }
     },[logined])
     return(
         <>
@@ -40,39 +46,36 @@ const AppRoutes = (props)=>{
           <Route path="/register">
             <Register />
           </Route>
-          <PrivateRoute path="/IdTest/:id" exact>
-          <TestComponent
-              nop={props.nop}
-              listQues={props.listQues}
-              handleGetAnswer={props.handleGetAnswer}
-              listIdTest={props.listIdTest}
-            />
-            
-          </PrivateRoute>
-          <PrivateRoute path="/IdTest">
-                <SearchIDTest startStatus={props.setStart} />
-               
-          </PrivateRoute>
-          <PrivateRoute path="/your-mark">
-          <Mark
-              mark={props.point}
-              countTrue={props.matchQues}
-              totalQues={props.length}
-              start={props.setStart}
-              sv={"Nguyễn Châu Phúc Cảnh"}
-              subTest={""}
-            />
-          </PrivateRoute>
+          <StudentRoute path="/IdTest/:id" exact>
+            <TestComponent
+                nop={props.nop}
+                listQues={props.listQues}
+                handleGetAnswer={props.handleGetAnswer}
+                listIdTest={props.listIdTest}
+              />
+          </StudentRoute>
+          <StudentRoute path="/IdTest">
+            <SearchIDTest startStatus={props.setStart} />
+          </StudentRoute>
+          <StudentRoute path="/your-mark">
+            <Mark
+                mark={props.point}
+                countTrue={props.matchQues}
+                totalQues={props.length}
+                start={props.setStart}
+                sv={user.email}
+                subTest={""}
+              />
+          </StudentRoute>
           <PrivateRoute path="/Teacher" exact>
-           
           </PrivateRoute>
-          <PrivateRoute path="/Teacher/new-test" exact>
+          <TeacherRoute path="/Teacher/new-test" exact>
            <TestList/>
-          </PrivateRoute>
-          <PrivateRoute path="/Teacher/banned" exact>
-           <BanList/>
-          </PrivateRoute>
-          <PrivateRoute path="/" exact>
+          </TeacherRoute>
+          <TeacherRoute path="/teacher/test">
+            <TestPage/>
+          </TeacherRoute>
+          {/* <PrivateRoute path="/" exact>
             <div className="container text-center mt-3  ">
               {props.isLoading === false ? (
                 <button className="btn btn-primary " onClick={handleRedirect}>
@@ -88,7 +91,7 @@ const AppRoutes = (props)=>{
                 </button>
               )}
             </div>
-          </PrivateRoute>   
+          </PrivateRoute>    */}
           {/* </>
           } */}
           <Route path="*" exact>
@@ -99,7 +102,9 @@ const AppRoutes = (props)=>{
               <h1>404 Not Found</h1>
             </div>
           </Route>
+          
         </Switch>
+        
         </>
     )
 }

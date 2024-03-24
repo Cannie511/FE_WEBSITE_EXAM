@@ -55,7 +55,7 @@ const Timer = ()=>{
     },[seconds, minutes])
     return(
 
-        <div className="Timer container sticky-sm-top mt-5 pt-2">
+        <div className="Timer container sticky-sm-top mt-5 pt-1">
             <div className="col-12 p-4 text-center d-sm-flex d-none">
             <span className="">Thời gian làm bài thúc sau: <b>{displayHour ===true && '0'}{minutes}:{displayTime===true && '0'}{seconds}</b> </span> 
             
