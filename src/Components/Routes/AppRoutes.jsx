@@ -16,18 +16,12 @@ import TestPage from "../TestPage/TestPage";
 import TeacherRoute from "./TeacherRoute";
 import StudentRoute from "./StudentRoute";
 import { UserContext } from "../Context/UserContext";
-import { ToastContainer,Bounce } from "react-toastify";
+import NotFound from "../404NotFound/NotFound";
 const AppRoutes = (props)=>{
     const history = useHistory()
-    const {user} = useContext(UserContext)
+    const {user} = useContext(UserContext);
     const [logined, setLogined]=useState(false);
     const [role, setRole] = useState(localStorage.getItem("role"));
-    const handleRedirect = () => {
-      setTimeout(() => {
-        history.push("/IdTest")
-      }, 1000);
-    }; 
-    
     useEffect(()=>{
         if(!role){
           history.push("/login");
@@ -35,7 +29,7 @@ const AppRoutes = (props)=>{
     },[logined])
     return(
         <>
-         <TeacherNav/>
+        <TeacherNav/>
         <Switch>
         <Route path="/login/" exact>
             <Login login={props.setIsSession} routeCheck={setLogined}/>
@@ -67,6 +61,10 @@ const AppRoutes = (props)=>{
                 subTest={""}
               />
           </StudentRoute>
+          <StudentRoute path="/" exact>
+          </StudentRoute>
+          <TeacherRoute path="/" exact>
+          </TeacherRoute>
           <PrivateRoute path="/Teacher" exact>
           </PrivateRoute>
           <TeacherRoute path="/Teacher/new-test" exact>
@@ -75,32 +73,8 @@ const AppRoutes = (props)=>{
           <TeacherRoute path="/teacher/test">
             <TestPage/>
           </TeacherRoute>
-          {/* <PrivateRoute path="/" exact>
-            <div className="container text-center mt-3  ">
-              {props.isLoading === false ? (
-                <button className="btn btn-primary " onClick={handleRedirect}>
-                  Nhấn vào để qua trang nhập mã bài thi
-                </button>
-              ) : (
-                <button
-                  className="btn btn-primary "
-                  disabled
-                  onClick={props.handleRedirect}
-                >
-                  Đang chuyển trang vui lòng chờ...
-                </button>
-              )}
-            </div>
-          </PrivateRoute>    */}
-          {/* </>
-          } */}
           <Route path="*" exact>
-            <div
-              className="container d-flex justify-content-center align-items-center "
-              style={{ height: "30rem" }}
-            >
-              <h1>404 Not Found</h1>
-            </div>
+            <NotFound/>
           </Route>
           
         </Switch>

@@ -20,7 +20,7 @@ const TeacherRoute = (props)=>{
       login(localStorage.getItem("email"));
     }
     else{
-      history.push(`/login/`);
+      history.push(`/login/gv`);
     }
   },[])
   

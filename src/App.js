@@ -13,7 +13,17 @@ function App() {
   const [listAns, setListAns] = useState([]);
   const [matchQues, setMatchQues] = useState(0);
   const [point, setPoint] = useState(0);
-
+  const shuffled = (array) => {
+    const shuffledArray = array.slice();
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArray[i], shuffledArray[j]] = [
+        shuffledArray[j],
+        shuffledArray[i],
+      ];
+    }
+    return shuffledArray;
+  };
   const [listKey, setListKey] = useState([
     { id: "1", ans: "B" },
     { id: "2", ans: "B" },
@@ -27,7 +37,8 @@ function App() {
     { id: "TDH202022", name: "Hóa Lớp 11" },
     { id: "TDH202021", name: "Địa Lớp 12" },
   ]);
-  const [listQues, setListQues] = useState([
+  const [listQues, setListQues] = useState(shuffled([
+
     {
       id: 1,
       title: "1+1 = ?",
@@ -68,7 +79,7 @@ function App() {
       C: 189,
       D: 198,
     },
-  ]);
+  ]));
   const markPerQes = 10 / listQues.length;
   const handleGetAnswer = (answer) => {
     setSelectedAns(answer);
@@ -114,17 +125,7 @@ function App() {
     }
     setPoint(countTrue * markPerQes);
   };
-  const shuffled = (array) => {
-    const shuffledArray = array.slice();
-    for (let i = shuffledArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffledArray[i], shuffledArray[j]] = [
-        shuffledArray[j],
-        shuffledArray[i],
-      ];
-    }
-    return shuffledArray;
-  };
+
   // const handleSession = () => {
   //   let session = sessionStorage.getItem("key");
   //   if (session) {
@@ -133,8 +134,8 @@ function App() {
   // };
   useEffect(() => {
     let answer = selectedAns;
-    //let shuffledArray = shuffled(listQues);
-    //setListQues(shuffledArray);
+    // let shuffledArray = shuffled(listQues);
+    // setListQues(shuffledArray);
     // let role = localStorage.getItem("role");
     if (answer && answer !== null) {
       setListAns([...listAns, answer]);

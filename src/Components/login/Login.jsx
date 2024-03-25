@@ -5,6 +5,7 @@ import {apiLogin} from "../../services/APIServices"
 import { useHistory,useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { toast } from "react-toastify";
+import Loading from "../Loading/Loading";
 
 const Login =(props)=>{
     const history = useHistory();
@@ -49,7 +50,6 @@ const Login =(props)=>{
                     localStorage.setItem("token",res.data.token);
                     toast("xin chào "+ username);
                     history.push("/IdTest");
-                    
                 }
             } catch (error) {
                 // console.log(error.response);
@@ -201,7 +201,7 @@ const Login =(props)=>{
                             </div>
                             <div className="mt-3 text-center">
                                 <button className="btn btn-success" onClick={handleLoginWithStudent} disabled={pending?true:false}>
-                                Đăng Nhập {pending && <FontAwesomeIcon icon="fa-solid fa-spinner fa-spin-pulse fa-spin-reverse" spin/>}  
+                                Đăng Nhập {pending && <Loading/>}  
                                     </button>
                             </div>
                             <hr />

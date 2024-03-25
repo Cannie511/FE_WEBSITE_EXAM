@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Button } from "react-bootstrap";
 import "./Header.scss";
 import Modal from "../ModalsBS5/Modal";
-
+import { UserContext } from "../Context/UserContext";
 const Header = (props)=>{
-
+    const {testname,showMarkTest} = useContext(UserContext);
     const [start, setStart] = useState(false);
     const [dialogConfirm, showDialogConfrim] = useState(false);
     const handeShowConfirmDialog = ()=>{
+        showMarkTest(props.testName);
         showDialogConfrim(true)
     }
     const handeHideConfirmDialog = ()=>{
@@ -35,7 +36,7 @@ const Header = (props)=>{
             
         </div>
         
-        <Modal nop={props.nop} show={dialogConfirm} hide={handeHideConfirmDialog} title={"Coi kĩ lại trước khi nộp. Bạn có chắc chắn muốn nộp không ?"}/>
+        <Modal nop={props.nop} testname={testname} show={dialogConfirm} hide={handeHideConfirmDialog} title={"Coi kĩ lại trước khi nộp. Bạn có chắc chắn muốn nộp không ?"}/>
         
         </>
         
