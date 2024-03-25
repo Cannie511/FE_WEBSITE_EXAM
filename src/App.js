@@ -133,8 +133,8 @@ function App() {
   // };
   useEffect(() => {
     let answer = selectedAns;
-    let shuffledArray = shuffled(listQues);
-    setListQues(shuffledArray);
+    //let shuffledArray = shuffled(listQues);
+    //setListQues(shuffledArray);
     // let role = localStorage.getItem("role");
     if (answer && answer !== null) {
       setListAns([...listAns, answer]);
