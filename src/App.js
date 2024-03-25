@@ -142,7 +142,7 @@ function App() {
       // console.log("ans:", answer);
     }
     // console.log(markPerQes);
-  }, [window.location.pathname]);
+  }, [window.location.pathname, selectedAns]);
 
   return (
     <BrowserRouter>
