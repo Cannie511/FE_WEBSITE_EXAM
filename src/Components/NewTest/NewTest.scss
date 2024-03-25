@@ -37,3 +37,11 @@
     display: flex;
     align-items: center;
 }
+.card{
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+    transition: color .3s ease-in-out;
+}
+.card:hover{
+    background-color:#d9d8d8 ;
+}
