@@ -125,13 +125,6 @@ function App() {
     }
     setPoint(countTrue * markPerQes);
   };
-
-  // const handleSession = () => {
-  //   let session = sessionStorage.getItem("key");
-  //   if (session) {
-  //     setIsSession(true);
-  //   }
-  // };
   useEffect(() => {
     let answer = selectedAns;
     // let shuffledArray = shuffled(listQues);

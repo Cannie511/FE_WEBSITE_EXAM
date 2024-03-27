@@ -168,7 +168,7 @@ const Login =(props)=>{
                             </div>
                             <div className="mt-3 text-center">
                                 <button className="btn btn-success" disabled={pending?true:false} onClick={(event)=>handleLoginWithTeacher(event)}>
-                                    Đăng Nhập {pending && <FontAwesomeIcon icon="fa-solid fa-spinner fa-spin-pulse fa-spin-reverse" spin/>}  
+                                    Đăng Nhập {pending && <Loading/>}  
                                 </button>
                             </div>
                             

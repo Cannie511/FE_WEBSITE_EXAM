@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {  } from "react-toastify";
 const AddNewTest = ()=>{
     const [countQues, setCountQues] = useState(0);
+    let listNewQues = [];
     const handleAddNewQues = async ()=>{
         let count = countQues;
         count++;
@@ -13,6 +14,32 @@ const AddNewTest = ()=>{
             behavior: 'smooth'
         });
     }
+    const handleDeleteNewQues = (key)=>{
+        let tempArray = [...listNewQues]
+        tempArray = tempArray.filter(item=>item!==listNewQues[key]);
+        let filter = [...tempArray];
+        listNewQues = filter;
+        console.log("check array: ",listNewQues);
+        return listNewQues;
+        // for(let i = 0; i< tempArray.length; i++){
+        //     console.log(tempArray[i]);
+        // }
+        // setCountQues(countQues-1);
+        // setCountQues(prevCount => prevCount - 1); 
+        // console.log("check list: ", listNewQues[key])
+    }
+    const renderQuestions = () => {
+        for (let i = 0; i < countQues; i++) {
+            listNewQues.push(
+            <div className="form-group col-12 my-2" key={i}>
+              <AddQuestion key={i} index={i} onDelete={handleDeleteNewQues} />
+            </div>
+            
+          );
+        }
+        
+        return listNewQues;
+      };
     return(
         <>
             <form>
@@ -34,21 +61,12 @@ const AddNewTest = ()=>{
                                 <input id="Subname" className="form-control" placeholder="Ghi chú..."/>
                             </div>
                             <div className="form-group col-12 my-2">
-                            {
-                                (() => {
-                                const listNewQues = [];
-                                for (let i = 0; i < countQues; i++) {
-                                    listNewQues.push(<div className="form-group col-12 my-2" key={i}><AddQuestion index={i}/></div>);
-                                }
-                                console.log(listNewQues);
-                                return listNewQues;
-                                })()
-                            }
+                            {renderQuestions()}
                             </div>
                             <div className="form-group col-sm-8 col-12 my-2">
                                 <button type="button" className="btn btn-success col-12 col-sm-3 float-sm-end" onClick={()=>handleAddNewQues()}><FontAwesomeIcon icon="fa-solid fa-circle-plus" /> Thêm câu hỏi mới</button>
-                                <button className="btn btn-primary col-12 col-sm-3 float-end mx-sm-2 my-1 my-sm-0">Xác Nhận Tạo Mới</button>
-                                
+                                <button className="btn btn-warning col-12 col-sm-3 float-end mx-sm-1 my-1 my-sm-0"><FontAwesomeIcon icon="fa-solid fa-floppy-disk" /> Lưu Nháp</button>
+                                <button className="btn btn-primary col-12 col-sm-3 float-end"><FontAwesomeIcon icon="fa-solid fa-circle-check" /> Xác Nhận Tạo Mới</button>
                             </div>
                             
                             </div>

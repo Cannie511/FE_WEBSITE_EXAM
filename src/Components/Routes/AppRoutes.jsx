@@ -62,11 +62,13 @@ const AppRoutes = (props)=>{
               />
           </StudentRoute>
           <StudentRoute path="/" exact>
+            <SearchIDTest startStatus={props.setStart} />
           </StudentRoute>
           <TeacherRoute path="/" exact>
+            <TestList/>
           </TeacherRoute>
-          <PrivateRoute path="/Teacher" exact>
-          </PrivateRoute>
+          {/* <PrivateRoute path="/Teacher" exact>
+          </PrivateRoute> */}
           <TeacherRoute path="/Teacher/new-test" exact>
            <TestList/>
           </TeacherRoute>

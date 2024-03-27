@@ -1,11 +1,14 @@
 import "./AddQuestion.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const AddQuestion = (props)=>{
+    const handleDeleteQues =(id)=>{
+        props.onDelete(id);
+    }
     return(
         <div className="container ques col-12 my-1 py-3 px-3 px-sm-5">
             <div className="row">
                 <div className="col-sm-9 col-12">
-                    <b>Câu hỏi số {props.index+1}:</b>
+                    <b>Câu hỏi số {props.index+1}: key: {props.index}</b>
                     <textarea type="text" className="form-control" placeholder="nội dung câu hỏi"/>
                 </div>
                 <div className="col-6 col-sm-2 ">
@@ -19,7 +22,7 @@ const AddQuestion = (props)=>{
                     
                 </div>
                 <div className="col-1 mt-4">
-                <button className="btn btn-danger d-none d-sm-block"><FontAwesomeIcon icon="fa-solid fa-minus" /></button>
+                <button type="button" className="btn btn-danger d-none d-sm-block" onClick={()=>handleDeleteQues(props.index)}><FontAwesomeIcon icon="fa-solid fa-minus" /></button>
                 </div>
             </div>
             <div className="row my-2">

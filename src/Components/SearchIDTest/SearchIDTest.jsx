@@ -10,8 +10,8 @@ const SearchIDTest =(props)=>{
         { id: "TDH202023", name: "Lý Lớp 7" },
         { id: "TDH202022", name: "Hóa Lớp 11" },
         { id: "TDH202021", name: "Địa Lớp 12" },
-        { id: "ABC", name: "Địa Lớp 12" },
-        { id: "ACS", name: "Địa Lớp 12" },
+        { id: "ABC", name: "Văn Lớp 8" },
+        { id: "ACS", name: "Sinh Lớp 9" },
       ]);
     const [idTest, setIdTest] = useState('');
     const [searchResults, setSearchResults] = useState([]);
@@ -47,9 +47,10 @@ const SearchIDTest =(props)=>{
         <form onSubmit={(event)=>handleTestID(event)}>
         <div className="searchIDtest container text-center d-flex justify-content-center mt-3 align-items-center flex-column">
             <div className="col-sm-6 col-12">
-                <div><h2 style={{color: 'gray'}}>Nhập mã bài thi tại đây:</h2></div>
+                <div><h2 style={{color: 'gray'}}>Nhập tên bài thi tại đây:</h2></div>
                 <div className="input-group">
-                    <input style={{border:"1px solid black"}} onChange={(event)=>setIdTest(event.target.value)} value={idTest} type="text" className="form-control" placeholder="Mã bài thi, Ví dụ: TDH202024." aria-label=""/>
+                    <input style={{border:"1px solid black"}} onChange={(event)=>setIdTest(event.target.value)} value={idTest} type="text" className="form-control" 
+                    placeholder="Tên bài thi..." aria-label=""/>
                     <button className="btn btn-outline-secondary"><FontAwesomeIcon icon="fa-solid fa-magnifying-glass" /></button>
                 </div>
                 {/* <div>{noReq === true && <i style={{color:"red"}}>Không tìm thấy bài thi</i>}</div> */}

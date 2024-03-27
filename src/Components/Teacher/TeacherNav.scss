@@ -1,11 +1,13 @@
 .teacher-nav{
   margin: 0;
+  position: relative;
+  z-index: 1000 !important;
   ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     width: 15%;
-    background-color: #efeded;
+    background-color: #c7e4f5;
     position: fixed;
     height: 100%;
     overflow: auto;
