@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {  useEffect, useState } from "react";
 import { Accordion, Button, Modal } from 'react-bootstrap';
 import QuesCard from "./QuesCard";
-import { apiAddNewQuesToExam, apiDeleteDraftExam, apiEditDraftExam, apiEditQuestion, apiGetDetailExamForStu, apiGetListMarkExam } from "../../services/APIServices";
+import { apiAddNewQuesToExam, apiDeleteDraftExam, apiEditDraftExam, apiEditQuestion, apiGetDetailExamForStu, apiGetListMarkExam, apiPublicExam } from "../../services/APIServices";
 import Loading from "../Loading/Loading";
 import { toast } from "react-toastify";
 import AddQuestion from "../AddQuestion/AddQuestion";
@@ -160,6 +160,21 @@ const TestDetail = ()=>{
     const handleModal = (mode) =>{
         setNoti(mode);
         setShowModal(true);
+    }
+    const handleChangeState = async()=>{
+        try {
+            let res = await apiPublicExam(id, userId);
+            if(res && res.status === 200){
+                toast.success("Đã công khai đề thi thành công!")
+                setStatus(1);
+                setShowModal(false);
+            }
+            else toast.error("Công khai đề thi thất bại!")
+        } catch (error) {
+            console.log(error)
+            toast.error("Đã xảy ra lỗi")
+        }
+        
     }
     useEffect(()=>{
         getDetailExam()
@@ -359,7 +374,7 @@ const TestDetail = ()=>{
                                             })}
                                             {listMark.length===0 && 
                                                 <tr>
-                                                    <td colSpan={3} className="text-center"> <FontAwesomeIcon icon="fa-solid fa-clipboard-list" />Chưa có sinh viên nộp bài...</td>
+                                                    <td colSpan={3} className="text-center"> <FontAwesomeIcon icon="fa-solid fa-clipboard-list" /> Chưa có sinh viên nộp bài...</td>
                                                 </tr>
                                             }
                                             
@@ -387,7 +402,10 @@ const TestDetail = ()=>{
           <Button variant="secondary" onClick={()=>setShowModal(false)}>
             Hủy
           </Button>
-          <Button variant={+noti===1 ? "danger":"success"} onClick={()=>handleDeleteExam(userId, id)} disabled={pending?true:false}>Đồng ý {pending && <Loading/>}</Button>
+          {+noti === 1 && 
+          <Button variant="danger" onClick={()=>handleDeleteExam(userId, id)} disabled={pending?true:false}>Đồng ý {pending && <Loading/>}</Button>}
+          {+noti === 2 && 
+          <Button variant="success" onClick={()=>handleChangeState(userId, id)} disabled={pending?true:false}>Đồng ý {pending && <Loading/>}</Button>}
         </Modal.Footer>
       </Modal>
         </>

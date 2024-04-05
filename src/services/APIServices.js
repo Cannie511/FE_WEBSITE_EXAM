@@ -93,6 +93,10 @@ const apiAddNewQuesToExam = async(noidung, dap_an_a, dap_an_b, dap_an_c, dap_an_
   let res = await axios.post(`${API_URL}/them-cau-hoi`,{noidung, dap_an_a, dap_an_b, dap_an_c, dap_an_d, dap_an_dung, dethi_id });
   return res;
 }
+const apiPublicExam = async(id, user_id)=>{
+  let res = await axios.put(`${API_URL}/chuyen-trang-thai/${id}`,{user_id});
+  return res;
+}
 export {
   apiLogin,
   apiRegister,
@@ -108,5 +112,6 @@ export {
   apiDeleteQuestion,
   apiEditQuestion,
   apiGetListMarkExam,
-  apiAddNewQuesToExam
+  apiAddNewQuesToExam,
+  apiPublicExam
 };
