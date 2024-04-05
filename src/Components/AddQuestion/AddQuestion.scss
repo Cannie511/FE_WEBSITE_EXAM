@@ -1,6 +1,41 @@
+
 .ques{
     background-color: aliceblue;
     border-radius: 5px;
-    float: left;
+    
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+}
+.list-ques{
+    background-color: #c4e5fa;
+    border-radius: 10px;
+    box-shadow: 1px 3px 5px 0px rgba(195, 195, 195, 0.75);
+    height: 80vh;
+    overflow-y: scroll;
+    &::-webkit-scrollbar{
+        width: 5px;
+    }
+    &::-webkit-scrollbar-track{
+        background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: lightgrey;
+        border-radius: 5px;
+    }
+    .information-card{
+        padding: 0.5rem;
+        text-align: center;
+        border-radius: 20px;
+        background-color: white;
+    }
+    .ques-card{
+        border-radius: 10px;
+        box-shadow: 1px 3px 5px 0px rgba(195, 195, 195, 0.75);
+        background-color: aliceblue;
+    }
+    i{
+        transition: .3 all ease-in-out;
+    }
+    i:hover{
+        color: gray;
+    }
 }

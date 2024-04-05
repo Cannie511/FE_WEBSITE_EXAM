@@ -1,6 +1,12 @@
 
 .login{
     margin-top: 8rem;
+    input{
+        border-radius: 0;
+        background-color: transparent;
+        border: 0;
+        border-bottom: 1px solid lightgray;
+    }
     .form-container{
         margin-left: 11rem;
         border-radius: 10px;

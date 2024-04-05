@@ -4,3 +4,6 @@ body{
     background-size: cover !important;
     background-attachment: fixed !important;
 }
+.pointer{
+    cursor: pointer;
+}

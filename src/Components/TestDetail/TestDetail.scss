@@ -1,0 +1,36 @@
+.detail-test{
+    background-color: white;
+    position: relative;
+    .main-color{
+        background-color: #6C7EE1 !important;
+        color: white !important;
+    }
+    .QuesCard{
+        height: fit-content;
+        transition: all .3s ease-in-out;
+        
+    }
+    .card-body{
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .show{
+        height: fit-content;
+    }
+    .accordion-item{
+        border: none !important;
+    }
+    .accordion-item:first-of-type>.accordion-header .accordion-button {
+        background-color: #9ca8eb;
+        border-radius: 5px;
+        position: relative;
+        z-index: 0 !important;
+    }
+}
+button{
+    .accordion-button.collapsed::after{
+        color: white !important;
+    }
+}
+

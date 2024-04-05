@@ -1,7 +1,7 @@
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import "./Nav.scss";
 import Dropdown from 'react-bootstrap/Dropdown';
-import { DropdownButton, NavDropdown } from "react-bootstrap";
+import { DropdownButton } from "react-bootstrap";
 import { UserContext } from "../Context/UserContext";
 import { useContext, useEffect, useState } from "react";
 const Nav = () => {
@@ -42,7 +42,7 @@ const Nav = () => {
           &nbsp;&nbsp;<span>
           <div className="d-flex flex-column">
               <div className="text-start"><span style={{ color: "gray", fontSize: ".8rem" }}>{+role===1? "giảng viên":"sinh viên"}: DH52005692</span></div>
-              <div>{user.email}</div>
+              <div>{user.name}</div>
             </div>  
           </span></span>}
          >

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import "./Timer.scss"
 
-const Timer = ()=>{
-    const [minutes, setMinutes] = useState(5);
-    const [seconds, setSeconds] = useState(10)
+const Timer = (props)=>{
+    const [minutes, setMinutes] = useState(+props.time-1||45);
+    const [seconds, setSeconds] = useState(59)
     const [displayTime, setDisplayTime] = useState(false);
     const [displayHour, setDisplayHour] = useState(false);
     const [warning, setWarning] = useState(0);

@@ -6,8 +6,8 @@ const ListQues = (props)=>{
     let {id} = useParams();
     useEffect(()=>{
       // console.log(id)
-      let x = props.listIdTest.find(x=>x.id===id);
-      if(x.id !== id){
+      let x = JSON.parse(localStorage.getItem("listIdTest")).find(x=>+x.id===+id);
+      if(+x.id !== +id){
         history.push("/IdTest");
       };
     },[])

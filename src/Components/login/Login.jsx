@@ -13,7 +13,7 @@ const Login =(props)=>{
     const [switchbtn, setSwitchbtn] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('')
-    const {login} = useContext(UserContext);
+    const {login, user} = useContext(UserContext);
     const [auth, setAuth] = useState(JSON.stringify(false));
     const [validUsername, setValidUsername] = useState(true);
     const [validPassword, setValidPassword] = useState(true);
@@ -40,17 +40,30 @@ const Login =(props)=>{
         if(username && password){
             try {
                 let res = await apiLogin(username, password);
-                // console.log("check login: ",res.status);
-                if(res && res.data && res.status === 200){
-                    login(username);
+                console.log("check login: ",res.status);
+                if(res && res.data && res.status === 200 && +res.data.user.vaitro === 2){
+                    login(username, res.data.user.name, res.data.user.id, +res.data.user.vaitro);
                     setPending(false);
                     localStorage.setItem("email", username);
+                    localStorage.setItem("name", res.data.user.name);
                     localStorage.setItem("login",JSON.stringify(true));
                     localStorage.setItem("role",2);
-                    localStorage.setItem("token",res.data.token);
-                    toast("xin chào "+ username);
+                    localStorage.setItem("token",res.data.user.id);
+                    toast("xin chào "+ res.data.user.name);
                     history.push("/IdTest");
+                    console.log(user)
                 }
+                else{
+                    setValidUsername(false);
+                    setPending(false);
+                }
+                // localStorage.setItem("name", "test");
+                // localStorage.setItem("email", username);
+                // localStorage.setItem("login",JSON.stringify(true));
+                // localStorage.setItem("role",2);
+                // localStorage.setItem("token","abc123");
+                // history.push("/IdTest");
+                // console.log("check res: ",res);
             } catch (error) {
                 // console.log(error.response);
                 setValidUsername(false)
@@ -81,16 +94,27 @@ const Login =(props)=>{
             try {
                 let res = await apiLogin(username, password);
                 // console.log("check login: ",res.status);
-                if(res && res.data && res.status === 200){
-                    login(username);
+                if(res && res.data && res.status === 200 && +res.data.user.vaitro === 1){
+                    login(username, res.data.user.name, res.data.user.id, +res.data.user.vaitro);
                     setPending(false);
                     localStorage.setItem("email", username);
+                    localStorage.setItem("name", res.data.user.name);
                     localStorage.setItem("login",JSON.stringify(true));
                     localStorage.setItem("role",1);
-                    localStorage.setItem("token",res.data.token);
+                    localStorage.setItem("token",res.data.user.id);
+                    toast("xin chào "+ res.data.user.name);
                     history.push("/Teacher/new-test");
-                    
                 }
+                else{
+                    setValidUsername(false)
+                    setPending(false);
+                }
+                // localStorage.setItem("name", "test");
+                // localStorage.setItem("email", username);
+                // localStorage.setItem("login",JSON.stringify(true));
+                // localStorage.setItem("role",1);
+                // localStorage.setItem("token","abc123");
+                // history.push("/Teacher/new-test");
             } catch (error) {
                 // console.log(error.response);
                 setValidUsername(false)
@@ -157,24 +181,32 @@ const Login =(props)=>{
                             </div>
                             <hr />
                             <div> 
-                                <label htmlFor="username"  style={{color:"gray"}}>Mã Giảng Viên (eve.holt@reqres.in)</label>
-                                <input type="text" id="username" value={username} onChange={(event)=>setUsername(event.target.value)} 
-                                className={validUsername === true ? "form-control":"form-control is-invalid"} placeholder="Tên đăng nhập"/>
+                                <div className=" row">
+                                    <div className="col-1 py-2"><FontAwesomeIcon icon="fas fa-envelope" /></div>
+                                    <div className="col-11">
+                                        <input type="text" id="username" value={username} onChange={(event)=>setUsername(event.target.value)} 
+                                        className={validUsername === true ? "form-control":"form-control is-invalid"} placeholder="Tên đăng nhập"/>
+                                    </div>
+                                </div>
                             </div>
                             <div className="mt-3">
-                                <label htmlFor="password" style={{color:"gray"}}>Mật khẩu</label>
-                                <input type="password" id="password" value={password} onChange={(event)=>setPassword(event.target.value)} 
-                                className={validPassword === true ? "form-control":"form-control is-invalid"} placeholder="Mật khẩu"/>
+                                <div className=" row">
+                                    <div className="col-1 py-2"><FontAwesomeIcon icon="fas fa-key" /></div>
+                                <div className="col-11">
+                                    <input type="password" id="password" value={password} onChange={(event)=>setPassword(event.target.value)} 
+                                    className={validPassword === true ? "form-control":"form-control is-invalid"} placeholder="Mật khẩu"/>
+                                </div>
+                                </div>
                             </div>
                             <div className="mt-3 text-center">
                                 <button className="btn btn-success" disabled={pending?true:false} onClick={(event)=>handleLoginWithTeacher(event)}>
-                                    Đăng Nhập {pending && <Loading/>}  
+                                    Đăng Nhập {pending ? <Loading/> : <FontAwesomeIcon icon="fa-solid fa-right-to-bracket" />}  
                                 </button>
                             </div>
                             
                             <hr />
                             <div className="mt-3 text-center">
-                            <button className="btn btn-danger w-75" onClick={()=>handleChangeRole("sv")}>Đăng Nhập Với Sinh Viên</button>
+                            <button className="btn btn-danger w-75" onClick={()=>handleChangeRole("sv")}>Đăng Nhập Với Sinh Viên <FontAwesomeIcon icon="fa-solid fa-user-graduate" /></button>
                             </div>
                         </div>
                         
@@ -190,27 +222,35 @@ const Login =(props)=>{
                             </div>
                             <hr />
                             <div> 
-                                <label htmlFor="username" style={{color:"gray"}}>Tên đăng nhập (eve.holt@reqres.in)</label>
-                                <input type="text" id="username" value={username} onChange={(event)=>setUsername(event.target.value)} 
-                                className={validUsername === true ? "form-control":"form-control is-invalid"} placeholder="Tên đăng nhập"/>
+                                <div className=" row">
+                                    <div className="col-1 py-2"><FontAwesomeIcon icon="fas fa-envelope" /></div>
+                                    <div className="col-11">
+                                        <input type="text" id="username" value={username} onChange={(event)=>setUsername(event.target.value)} 
+                                        className={validUsername === true ? "form-control":"form-control is-invalid"} placeholder="Tên đăng nhập"/>
+                                    </div>
+                                </div>
                             </div>
                             <div className="mt-3">
-                                <label htmlFor="password" style={{color:"gray"}}>Mật khẩu</label>
-                                <input type="password" id="password"  value={password} onChange={(event)=>setPassword(event.target.value)} 
-                                className={validPassword === true ? "form-control":"form-control is-invalid"} placeholder="Mật khẩu"/>
+                                <div className=" row">
+                                    <div className="col-1 py-2"><FontAwesomeIcon icon="fas fa-key" /></div>
+                                <div className="col-11">
+                                    <input type="password" id="password" value={password} onChange={(event)=>setPassword(event.target.value)} 
+                                    className={validPassword === true ? "form-control":"form-control is-invalid"} placeholder="Mật khẩu"/>
+                                </div>
+                                </div>
                             </div>
                             <div className="mt-3 text-center">
                                 <button className="btn btn-success" onClick={handleLoginWithStudent} disabled={pending?true:false}>
-                                Đăng Nhập {pending && <Loading/>}  
+                                Đăng Nhập {pending ? <Loading/>:<FontAwesomeIcon icon="fa-solid fa-right-to-bracket" />}  
                                     </button>
                             </div>
                             <hr />
                             <div className="mt-3 text-center">
-                                <button type="button" className="btn btn-primary w-75" onClick={handleRegister}>Đăng Ký Tài Khoản</button>
+                                <button type="button" className="btn btn-primary w-75" onClick={handleRegister}>Đăng Ký Tài Khoản <FontAwesomeIcon icon="fa-solid fa-angles-right" /></button>
                             </div>
                             
                                 <div className="mt-3 text-center">
-                                    <button className="btn btn-danger w-75" onClick={()=>handleChangeRole("gv")}>Đăng Nhập Với Giảng Viên</button>
+                                    <button className="btn btn-danger w-75" onClick={()=>handleChangeRole("gv")}>Đăng Nhập Với Giảng Viên <FontAwesomeIcon icon="fa-solid fa-chalkboard-user" /></button>
                                 </div>
                             
                             {/* <div class="form-check form-switch" onClick={()=>handleSwitchBtn()}>

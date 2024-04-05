@@ -10,12 +10,13 @@ const ResultID = (props)=>{
         <div className="card container m-auto mt-2" key={props.item.id}>
             <div className="card-body row p-2 ">
                 <div className="col-9">
-                    <b>Môn: {props.item.name}</b><br />
-                    <sub>thời gian: 60p</sub><br />
-                    <sub>Số lần làm: 1</sub> 
+                    <b>Môn: {props.item.tendethi}</b><br />
+                    <sub>thời gian: {props.item.thoigianthi}p</sub><br />
+                    <sub>Số câu hỏi: {props.item.soluongcauhoi} câu</sub><br />
+                    {/* <sub>Số lần làm: 1</sub>  */}
                 </div>
                 <div className="col-3 d-flex align-items-center justify-content-end">
-                    <button className="btn btn-success float-end" onClick={()=>handleGoTest(props.item.id)}><FontAwesomeIcon icon="fa-solid fa-angles-right" /></button>
+                    <button className="btn btn-success float-end" onClick={()=>handleGoTest(props.item.id)}><FontAwesomeIcon icon="fa-solid fa-door-open" /></button>
                 </div>
             </div>
         </div>

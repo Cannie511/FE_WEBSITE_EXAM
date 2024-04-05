@@ -17,15 +17,16 @@ import TeacherRoute from "./TeacherRoute";
 import StudentRoute from "./StudentRoute";
 import { UserContext } from "../Context/UserContext";
 import NotFound from "../404NotFound/NotFound";
+import TestDetail from "../TestDetail/TestDetail";
 const AppRoutes = (props)=>{
     const history = useHistory()
     const {user} = useContext(UserContext);
     const [logined, setLogined]=useState(false);
     const [role, setRole] = useState(localStorage.getItem("role"));
     useEffect(()=>{
-        if(!role){
-          history.push("/login");
-        }
+        // if(!role){
+        //   history.push("/login");
+        // }
     },[logined])
     return(
         <>
@@ -46,6 +47,8 @@ const AppRoutes = (props)=>{
                 listQues={props.listQues}
                 handleGetAnswer={props.handleGetAnswer}
                 listIdTest={props.listIdTest}
+                setQuesNoShuf={props.setQuesNoShuf}
+                setKey={props.setKey}
               />
           </StudentRoute>
           <StudentRoute path="/IdTest">
@@ -72,8 +75,11 @@ const AppRoutes = (props)=>{
           <TeacherRoute path="/Teacher/new-test" exact>
            <TestList/>
           </TeacherRoute>
-          <TeacherRoute path="/teacher/test">
+          <TeacherRoute path="/teacher/test" exact>
             <TestPage/>
+          </TeacherRoute>
+          <TeacherRoute path="/Teacher/test/detail/:id" exact>
+            <TestDetail/>
           </TeacherRoute>
           <Route path="*" exact>
             <NotFound/>
